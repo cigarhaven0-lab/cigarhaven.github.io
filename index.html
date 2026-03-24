@@ -48,9 +48,33 @@
 
 <div class="hero">
   <h1>Find the Best Cigars at the Best Price</h1>
-  <p>Your one-stop destination for premium cigar deals across the web.</p>
-  <a href="#" class="button">Browse Cigars</a>
+  <p>Search across top retailers instantly.</p>
+
+  <input type="text" id="searchInput" placeholder="Search cigars (e.g. Cohiba, Padron)">
+  <br><br>
+  <button onclick="searchCigars()" class="button">Search</button>
+
+  <div id="results" style="margin-top:40px;"></div>
 </div>
+
+<script>
+function searchCigars() {
+  const query = document.getElementById("searchInput").value;
+  const resultsDiv = document.getElementById("results");
+
+  if (!query) {
+    resultsDiv.innerHTML = "<p>Please enter a cigar name.</p>";
+    return;
+  }
+
+  resultsDiv.innerHTML = `
+    <h2>Results for "${query}"</h2>
+    <p><a href="https://www.jrcigars.com/search?q=${query}" target="_blank">Check JR Cigars</a></p>
+    <p><a href="https://www.cigarsinternational.com/search?query=${query}" target="_blank">Check Cigars International</a></p>
+    <p><a href="https://www.thompsoncigar.com/search?text=${query}" target="_blank">Check Thompson Cigars</a></p>
+  `;
+}
+</script>
 
 </body>
 </html>
