@@ -58,7 +58,7 @@
 </div>
 
 <script>
-function searchCigars() {
+async function searchCigars() {
   const query = document.getElementById("searchInput").value;
   const resultsDiv = document.getElementById("results");
 
@@ -67,14 +67,33 @@ function searchCigars() {
     return;
   }
 
-  resultsDiv.innerHTML = `
-    <h2>Results for "${query}"</h2>
-    <p><a href="https://www.jrcigars.com/search?q=${query}" target="_blank">Check JR Cigars</a></p>
-    <p><a href="https://www.cigarsinternational.com/search?query=${query}" target="_blank">Check Cigars International</a></p>
-    <p><a href="https://www.thompsoncigar.com/search?text=${query}" target="_blank">Check Thompson Cigars</a></p>
-  `;
+  resultsDiv.innerHTML = "<p>Searching...</p>";
+
+  try {
+    const response = await fetch(`https://cigarhaven-backend.onrender.com/search?q=${encodeURIComponent(query)}`);
+    const results = await response.json();
+
+    if (!results.length) {
+      resultsDiv.innerHTML = "<p>No results found.</p>";
+      return;
+    }
+
+    resultsDiv.innerHTML = `
+      <h2>Results for "${query}"</h2>
+      ${results.map(item => `
+        <div style="margin-bottom:20px; border:1px solid #444; padding:15px; border-radius:8px;">
+          <h3>${item.store}</h3>
+          <p>${item.name}</p>
+          <p><strong>${item.price}</strong></p>
+          <a href="${item.url}" target="_blank">View Product</a>
+        </div>
+      `).join("")}
+    `;
+  } catch (error) {
+    resultsDiv.innerHTML = "<p>Error loading results.</p>";
+    console.error(error);
+  }
 }
 </script>
-
 </body>
 </html>
