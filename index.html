@@ -79,16 +79,21 @@ async function searchCigars() {
     }
 
     resultsDiv.innerHTML = `
-      <h2>Results for "${query}"</h2>
-      ${results.map(item => `
-        <div style="margin-bottom:20px; border:1px solid #444; padding:15px; border-radius:8px;">
-          <h3>${item.store}</h3>
-          <p>${item.name}</p>
-          <p><strong>${item.price}</strong></p>
-          <a href="${item.url}" target="_blank">View Product</a>
-        </div>
-      `).join("")}
-    `;
+  <h2>Results for "${query}"</h2>
+  ${results.map(item => `
+    <div style="margin-bottom:20px; border:1px solid #444; padding:15px; border-radius:8px;">
+      <h3>${item.store}</h3>
+      <p>${item.name}</p>
+      <p><strong>${item.price}</strong></p>
+      <p>Pack: ${item.pack || "N/A"}</p>
+      <p>In Stock: ${item.inStock ? "Yes" : "No"}</p>
+      <p>Last Checked: ${item.lastChecked || "N/A"}</p>
+      <p>Type: ${item.sourceType || "unknown"}</p>
+      <a href="${item.url}" target="_blank">View Product</a>
+    </div>
+  `).join("")}
+`;
+    
   } catch (error) {
     resultsDiv.innerHTML = "<p>Error loading results.</p>";
     console.error(error);
