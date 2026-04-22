@@ -43,6 +43,7 @@
     .search-bar {
       display: flex;
       justify-content: center;
+      gap: 0;
       max-width: 600px;
       margin: 0 auto;
     }
@@ -51,25 +52,214 @@
       flex: 1;
       padding: 14px 20px;
       font-size: 15px;
+      font-family: 'Georgia', serif;
       background: #1a1a1a;
       border: 1px solid #444;
+      border-right: none;
       color: #f5f5f5;
+      outline: none;
+      border-radius: 2px 0 0 2px;
     }
+
+    .search-bar input::placeholder { color: #555; }
+    .search-bar input:focus { border-color: #c9a55c; }
 
     .search-bar button {
       padding: 14px 28px;
       background: #c9a55c;
       color: #0d0d0d;
       border: none;
+      font-family: 'Georgia', serif;
+      font-size: 15px;
       font-weight: bold;
       cursor: pointer;
+      letter-spacing: 1px;
+      border-radius: 0 2px 2px 0;
+      transition: background 0.2s;
     }
 
+    .search-bar button:hover { background: #e0b96a; }
+    .search-bar button:disabled { background: #666; cursor: not-allowed; }
+
+    .brands {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #555;
+      letter-spacing: 1px;
+    }
+
+    .brands span { color: #888; margin: 0 8px; }
+
+    /* Results area */
     #results {
       max-width: 900px;
       margin: 50px auto;
       padding: 0 20px 60px;
     }
+
+    .results-header {
+      font-size: 13px;
+      color: #666;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #222;
+    }
+
+    .results-header strong { color: #c9a55c; }
+
+    /* Store sections */
+    .store-section { margin-bottom: 40px; }
+
+    .store-title {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #c9a55c;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #222;
+    }
+
+    /* Product card */
+    .product-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #141414;
+      border: 1px solid #252525;
+      padding: 16px 20px;
+      margin-bottom: 8px;
+      border-radius: 2px;
+      transition: border-color 0.2s;
+      gap: 12px;
+    }
+
+    .product-card:hover { border-color: #3a3a3a; }
+
+    .product-info { flex: 1; min-width: 0; }
+
+    .product-name {
+      font-size: 15px;
+      color: #e8e8e8;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .product-meta {
+      font-size: 12px;
+      color: #555;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .product-meta .in-stock { color: #5a9e6f; }
+    .product-meta .out-stock { color: #9e5a5a; }
+
+    .product-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .product-price {
+      font-size: 20px;
+      color: #c9a55c;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .product-link {
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #555;
+      text-decoration: none;
+      border: 1px solid #333;
+      padding: 5px 10px;
+      border-radius: 2px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .product-link:hover {
+      color: #c9a55c;
+      border-color: #c9a55c;
+    }
+
+    /* Loading spinner */
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: #555;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 2px solid #222;
+      border-top-color: #c9a55c;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-text {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .loading-sub {
+      font-size: 11px;
+      color: #444;
+      margin-top: 8px;
+    }
+
+    /* Empty / error states */
+    .state-msg {
+      text-align: center;
+      padding: 60px 20px;
+      color: #555;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .state-msg .icon { font-size: 32px; margin-bottom: 16px; }
+    .state-msg p { margin-bottom: 6px; }
+    .state-msg small { font-size: 12px; color: #444; }
+
+    /* Sorting bar */
+    .sort-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .sort-bar select {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      color: #888;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-family: 'Georgia', serif;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .sort-bar select:focus { border-color: #c9a55c; }
   </style>
 </head>
 <body>
@@ -81,27 +271,185 @@
   <p>Live prices pulled from top retailers — sorted lowest first.</p>
 
   <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Search by brand">
-    <button onclick="searchCigars()">Search</button>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search by brand (e.g. Padron, Cohiba, Macanudo)"
+      onkeydown="if(event.key==='Enter') searchCigars()"
+    >
+    <button id="searchBtn" onclick="searchCigars()">Search</button>
+  </div>
+
+  <div class="brands">
+    <span>Padron</span>·<span>Montecristo</span>·<span>Cohiba</span>·
+    <span>Romeo y Julieta</span>·<span>Arturo Fuente</span>·<span>Macanudo</span>·
+    <span>Oliva</span>·<span>Davidoff</span>·<span>Rocky Patel</span>·<span>Ashton</span>
   </div>
 </div>
 
 <div id="results"></div>
 
 <script>
-const BACKEND = "https://cigarhaven-backend.onrender.com";
+  const BACKEND = "https://cigarhaven-backend.onrender.com";
 
-function searchCigars() {
-  const query = document.getElementById("searchInput").value.trim();
+  function searchCigars() {
+    const query = document.getElementById("searchInput").value.trim();
+    const resultsDiv = document.getElementById("results");
+    const btn = document.getElementById("searchBtn");
 
-  fetch(`${BACKEND}/search?q=${encodeURIComponent(query)}`)
-    .then(r => r.json())
-    .then(results => {
-      document.getElementById("results").innerHTML =
-        JSON.stringify(results, null, 2);
-    });
-}
+    if (!query) {
+      resultsDiv.innerHTML = `<div class="state-msg"><div class="icon">🔍</div><p>Enter a cigar brand to search.</p></div>`;
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Searching...";
+
+    resultsDiv.innerHTML = `
+      <div class="loading">
+        <div class="spinner"></div>
+        <div class="loading-text">Searching retailers</div>
+        <div class="loading-sub">Pulling live prices from JR Cigars, Thompson, and Cigars International…</div>
+      </div>`;
+
+    fetch(`${BACKEND}/search?q=${encodeURIComponent(query)}`)
+      .then(r => r.json())
+      .then(results => {
+        btn.disabled = false;
+        btn.textContent = "Search";
+
+        if (!Array.isArray(results) || results.length === 0) {
+          resultsDiv.innerHTML = `
+            <div class="state-msg">
+              <div class="icon">🚬</div>
+              <p>No results found for "<strong>${escHtml(query)}</strong>".</p>
+              <small>Try a different brand name — e.g. Padron, Cohiba, Macanudo, Oliva</small>
+            </div>`;
+          return;
+        }
+
+        renderResults(query, results);
+      })
+      .catch(err => {
+        btn.disabled = false;
+        btn.textContent = "Search";
+        console.error(err);
+        resultsDiv.innerHTML = `
+          <div class="state-msg">
+            <div class="icon">⚠️</div>
+            <p>Could not reach the server.</p>
+            <small>The backend may be starting up — wait 30 seconds and try again.</small>
+          </div>`;
+      });
+  }
+
+  function renderResults(query, results) {
+    const resultsDiv = document.getElementById("results");
+
+    // Group by store
+    const byStore = {};
+    for (const item of results) {
+      if (!byStore[item.store]) byStore[item.store] = [];
+      byStore[item.store].push(item);
+    }
+
+    const storeOrder = ["JR Cigars", "Thompson Cigars", "Cigars International"];
+    const stores = [...new Set([...storeOrder, ...Object.keys(byStore)])].filter(s => byStore[s]);
+
+    let html = `
+      <div class="sort-bar">
+        <div class="results-header">
+          <strong>${results.length}</strong> results for "${escHtml(query)}" — sorted by price
+        </div>
+        <select onchange="sortResults(this.value)" id="sortSelect">
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="store">By Store</option>
+        </select>
+      </div>
+      <div id="resultsList">`;
+
+    for (const store of stores) {
+      html += `<div class="store-section"><div class="store-title">${escHtml(store)}</div>`;
+      for (const item of byStore[store]) {
+        html += productCard(item);
+      }
+      html += `</div>`;
+    }
+
+    html += `</div>`;
+    resultsDiv.innerHTML = html;
+
+    // Store results globally for re-sorting
+    window._lastResults = results;
+    window._lastQuery = query;
+  }
+
+  function productCard(item) {
+    const stockClass = item.inStock ? "in-stock" : "out-stock";
+    const stockText = item.inStock ? "In Stock" : "Out of Stock";
+    return `
+      <div class="product-card">
+        <div class="product-info">
+          <div class="product-name" title="${escHtml(item.name)}">${escHtml(item.name)}</div>
+          <div class="product-meta">
+            <span>${escHtml(item.pack || "N/A")}</span>
+            <span class="${stockClass}">${stockText}</span>
+            <span>${escHtml(item.lastChecked || "")}</span>
+          </div>
+        </div>
+        <div class="product-right">
+          <div class="product-price">${escHtml(item.price)}</div>
+          <a class="product-link" href="${escHtml(item.url)}" target="_blank" rel="noopener">View →</a>
+        </div>
+      </div>`;
+  }
+
+  function sortResults(mode) {
+    if (!window._lastResults) return;
+    let sorted = [...window._lastResults];
+
+    if (mode === "price-asc") {
+      sorted.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+    } else if (mode === "price-desc") {
+      sorted.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+    } else if (mode === "store") {
+      sorted.sort((a, b) => a.store.localeCompare(b.store));
+    }
+
+    const list = document.getElementById("resultsList");
+    if (!list) return;
+
+    // Group by store for "by store" mode, otherwise flat list
+    if (mode === "store") {
+      const byStore = {};
+      for (const item of sorted) {
+        if (!byStore[item.store]) byStore[item.store] = [];
+        byStore[item.store].push(item);
+      }
+      let html = "";
+      for (const [store, items] of Object.entries(byStore)) {
+        html += `<div class="store-section"><div class="store-title">${escHtml(store)}</div>`;
+        for (const item of items) html += productCard(item);
+        html += `</div>`;
+      }
+      list.innerHTML = html;
+    } else {
+      list.innerHTML = `<div class="store-section">` + sorted.map(productCard).join("") + `</div>`;
+    }
+  }
+
+  function parsePrice(p) {
+    return parseFloat(String(p || "").replace(/[^0-9.]/g, "")) || 999999;
+  }
+
+  function escHtml(str) {
+    return String(str || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
 </script>
-
 </body>
 </html>
